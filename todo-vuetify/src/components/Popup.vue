@@ -1,5 +1,5 @@
 <template>
-  <v-dialog max-width="600px">
+  <v-dialog max-width="600px" v-model="dialog">
     <v-btn flat slot="activator" class="success">Add new project</v-btn>
     <v-card>
       <v-card-title>
@@ -40,7 +40,8 @@ export default {
       inputRules: [
         v => v.length >= 3 || 'Invalid input. Please complete field'
       ],
-      loading: false
+      loading: false,
+      dialog: false
     }
   },
   methods: {
@@ -59,6 +60,8 @@ export default {
         db.collection('projects').add(project).then(() => {
           console.log('added to db')
           this.loading = false;
+          this.dialog = false;
+          this.$emit('projectAdded')
         })
       }
     }
