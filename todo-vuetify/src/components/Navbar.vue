@@ -7,11 +7,26 @@
       <span>MNGR</span>
     </v-toolbar-title>
     <v-spacer></v-spacer>
+
+      <!-- Dropdown menu -->
+    <v-menu offset-y>
+      <v-btn flat slot="activator" color="grey">
+        <v-icon left>expand_more</v-icon>
+        <span>Menu</span>
+      </v-btn>
+      <v-list>
+        <v-list-tile v-for="link in links" :key="link.text" router :to="link.route">
+          <v-list-tile-title>{{ link.text }}</v-list-tile-title>
+        </v-list-tile>
+      </v-list>
+    </v-menu>
+
     <v-btn flat color="grey" id="test">
       <span>Sign Out</span>
       <v-icon right>exit_to_app</v-icon>
     </v-btn>
   </v-toolbar>
+
 
   <v-navigation-drawer v-model="drawer" app class="warning">
     <v-layout column align-center>
@@ -19,7 +34,10 @@
         <v-avatar size="100">
           <img src="/tom.jpg" alt="">
         </v-avatar>
-        <p></p>
+        <p class="white--text subheading mt-1 ml-4">Tom</p>
+      </v-flex>
+      <v-flex class="mt-4 mb-3">
+        <Popup />
       </v-flex>
     </v-layout>
     <v-list>
@@ -40,7 +58,9 @@
 
 
 <script>
+import Popup from './Popup'
 export default {
+  components: { Popup },
   data() {
     return {
       drawer: false,
